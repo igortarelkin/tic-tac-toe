@@ -1,0 +1,14 @@
+.wrapper{   
+    margin: 1rem 1rem;
+    
+}
+button{
+    padding: 20px 20px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid teal;
+    background-color: rgb(236, 247, 243);
+
+    color: rgb(26, 129, 225);
+    height:80px;
+    width:80px;
+}
