@@ -64,17 +64,15 @@ export const GameBoard = () => {
   return (
     <div className="wrapper">
       <h3>{status}</h3>
-      <div className="section sectionOne">
+      <div className="section">
         {returnSquare(0)}
         {returnSquare(1)}
         {returnSquare(2)}
-      </div>
-      <div className="section sectionTwo">
+      
         {returnSquare(3)}
         {returnSquare(4)}
         {returnSquare(5)}
-      </div>
-      <div className="section sectionThree">
+      
         {returnSquare(6)}
         {returnSquare(7)}
         {returnSquare(8)}
