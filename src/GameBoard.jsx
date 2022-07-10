@@ -10,6 +10,12 @@ export const GameBoard = () => {
   };
 
   const [state, setState] = useState(currentState);
+  const[isChecked, setChecked] = useState(false)
+  
+  const setPcgame = () =>{
+    setChecked(true)
+  }
+  
 
   const onFill = (id) => {
     const allSquares = state.allSquares.slice();
@@ -18,11 +24,43 @@ export const GameBoard = () => {
     }
     allSquares[id] = state.xIsNext ? "X" : "0";
 
-    console.log(id);
     setState({
       allSquares: allSquares,
-      xIsNext: !state.xIsNext,
+      xIsNext: isChecked ? true : !state.xIsNext,
     });
+
+    /////////////////////////////////////////////////
+    if (isChecked === true){
+      if (state.xIsNext === true) {
+        const getIdForPc = () => {
+          let newIdForPC = Math.floor(Math.random() * 9);
+
+          if (allSquares.includes(null)) {
+            while (allSquares[newIdForPC] !== null) {
+              newIdForPC = Math.floor(Math.random() * 9);
+            }
+          }
+          return newIdForPC;
+        };
+
+        let newId = getIdForPc();
+
+        if (allSquares[newId] !== null) {
+          newId = getIdForPc();
+        }
+
+        if (allSquares[newId] || findWinner(allSquares)) {
+          return;
+        }
+
+        allSquares[newId] = state.xIsNext ? "0" : "X";
+
+        setState({
+          allSquares: allSquares,
+          xIsNext: true,
+        });
+      }
+    };
   };
 
   const returnSquare = (id) => {
@@ -58,7 +96,7 @@ export const GameBoard = () => {
   if (winner) {
     status = "Winner is player " + winner;
   } else {
-    status = "Next step: " + (state.xIsNext ? "X" : "O");
+    status = "Next step: " + (state.xIsNext ? "X" : "0");
   }
 
   return (
@@ -68,14 +106,19 @@ export const GameBoard = () => {
         {returnSquare(0)}
         {returnSquare(1)}
         {returnSquare(2)}
-      
+
         {returnSquare(3)}
         {returnSquare(4)}
         {returnSquare(5)}
-      
+
         {returnSquare(6)}
         {returnSquare(7)}
         {returnSquare(8)}
+      </div>
+      <div>
+        <br />
+        <input type="checkbox" id="pcgame" name="pcgame" onClick={setPcgame} checked={isChecked} />
+        <label for="vehicle1"> Play VS PC (pc play in "0" team)</label>
       </div>
     </div>
   );
